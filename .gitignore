@@ -1,0 +1,4 @@
+.merlin
+.ocamlformat
+_build
+dune-project

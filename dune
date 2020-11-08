@@ -1,0 +1,3 @@
+(executable
+ (name oclogic)
+ (libraries base stdio))
