@@ -3,7 +3,7 @@ open Stdio
 
 module Oclogic = struct
   let display_and_read c1 =
-    printf "Calcule: %s = " (Compute.display c1);
+    printf "Calcule: %s = " (Compute.to_string c1);
     read_int ()
 
   let create_compute op =
@@ -13,31 +13,32 @@ module Oclogic = struct
     Compute.create (Number.from_int nl) (Number.from_int nr) op
 
   let round turn =
-    printf "Running turn %i\n" turn;
+    printf "Tour(s): %i\n" (turn + 1);
+
     let c1 = create_compute Compute.ADD in
     let typed = display_and_read c1 in
 
     let expected = Compute.resolv c1 in
-    match typed == expected with
+    match typed == Number.to_int expected with
     | true ->
         printf "Bravo !\n";
-        true
+        Result.create c1 (Number.from_int typed) true
     | false ->
         printf "Faux !\n";
-        false
+        Result.create c1 (Number.from_int typed) false
 
-  let rec game turn turn_played =
-    printf "Running game with %i turns\n" turn;
-    printf "Turn played %i\n" turn_played;
-
+  let rec game turn turn_played results =
     let remain = turn - turn_played in
     match remain with
-    | 0 -> ()
+    | 0 ->
+        printf "\nVoici tes resultats:\n%s\n"
+          (results |> Results.to_string)
     | _ ->
-        let _ = round turn_played in
-        game turn (turn_played + 1)
+        let ret = round turn_played in
+        game turn (turn_played + 1) (Results.register results ret)
 end
 
 let () =
-  printf "Start game !\n";
-  Oclogic.game 3 0
+  let rounds = 3 in
+  printf "\nBonjour ! Le Jeu commence. (%i tours)\n\n" rounds;
+  Oclogic.game rounds 0 Results.empty
