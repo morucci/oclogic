@@ -9,7 +9,7 @@ module Oclogic = struct
   let round turn =
     printf "Tour(s): %i\n" (turn + 1);
 
-    let c1 = Compute.create 1 1 in
+    let c1 = Compute.create 1 1 [Compute.ADD; Compute.SUB] in
     let typed = display_and_read c1 in
 
     let expected = Compute.interpret c1 in
