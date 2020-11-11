@@ -2,6 +2,8 @@ type t = { compute : Compute.t; input : Number.t; result : bool }
 
 let create compute input result = { compute; input; result }
 
+let is_good r = r.result == true
+
 let to_string result =
   let base = " Calcul '" ^ Compute.to_string result.compute ^ "' " in
   let result_str =

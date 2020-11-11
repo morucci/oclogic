@@ -29,7 +29,7 @@ end = struct
     let rec _game l turn turn_played results =
       let remain = turn - turn_played in
       match remain with
-      | 0 -> printf "\nVoici tes resultats:\n%s\n" (results |> Results.to_string)
+      | 0 -> printf "\n%s" (results |> Results.to_string)
       | _ ->
           let ret = round l in
           _game l turn (turn_played + 1) (Results.register results ret)
@@ -38,6 +38,6 @@ end = struct
 end
 
 let () =
-  let rounds = 3 in
+  let rounds = 5 in
   printf "\nBonjour ! Le Jeu commence. (%i tours)\n\n" rounds;
   Oclogic.game Levels.LVL1 rounds
