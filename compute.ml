@@ -9,16 +9,12 @@ let rec to_string c =
   | Num n -> Number.to_string n
   | Operation o -> to_string o.l ^ op_to_string o.op ^ to_string o.r
 
-let rec create c =
+let rec create c d =
   match c with
   | 0 ->
       Random.self_init ();
-      Num (Number.from_int (Random.int 10))
-  | 1 ->
-      let l = create 0 in
-      let r = create 0 in
-      Operation { op = ADD; l; r }
-  | x -> Operation { op = ADD; l = create (x - 1); r = create 0 }
+    Num (Number.from_int (Random.int (d  * 10)))
+  | x -> Operation { op = ADD; l = create (x - 1) d; r = create 0 d }
 
 let op_to_func o = match o with ADD -> ( + )
 
