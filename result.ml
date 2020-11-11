@@ -8,7 +8,7 @@ let to_string result =
     match result.result with true -> "[Bon]" | false -> "[Faux]"
   in
   result_str ^ base ^ " = "
-  ^ Number.to_string (Compute.resolv result.compute)
+  ^ Number.to_string (Compute.interpret result.compute)
   ^ " ("
   ^ Number.to_string result.input
   ^ ")"

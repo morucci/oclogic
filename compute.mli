@@ -4,6 +4,6 @@ type op = ADD
 
 val to_string : t -> string
 
-val create : Number.t -> Number.t -> op -> t
+val create : int -> t
 
-val resolv : t -> Number.t
+val interpret : t -> Number.t

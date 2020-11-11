@@ -1,12 +1,31 @@
 type op = ADD
 
-type t = { nl : Number.t; nr : Number.t; op : op }
+type t = Num of Number.t | Operation of { op : op; l : t; r : t }
 
 let op_to_string op = match op with ADD -> " + "
 
-let to_string c =
-  Number.to_string c.nl ^ op_to_string c.op ^ Number.to_string c.nr
+let rec to_string c =
+  match c with
+  | Num n -> Number.to_string n
+  | Operation o -> to_string o.l ^ op_to_string o.op ^ to_string o.r
 
-let create nl nr op = { nl; nr; op }
+let rec create c =
+  match c with
+  | 0 ->
+      Random.self_init ();
+      Num (Number.from_int (Random.int 10))
+  | 1 ->
+      let l = create 0 in
+      let r = create 0 in
+      Operation { op = ADD; l; r }
+  | x -> Operation { op = ADD; l = create (x - 1); r = create 0 }
 
-let resolv c = Number.from_int (Number.to_int c.nl + Number.to_int c.nr)
+let op_to_func o = match o with ADD -> ( + )
+
+let interpret comp =
+  let rec _interpret c =
+    match c with
+    | Num n -> Number.to_int n
+    | Operation o -> (op_to_func o.op) (_interpret o.l) (_interpret o.r)
+  in
+  Number.from_int (_interpret comp)
