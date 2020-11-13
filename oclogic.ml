@@ -14,11 +14,7 @@ end = struct
 
   let round l =
     let level = Levels.get l in
-    let compute =
-      Compute.create (Levels.get_nb_expr level)
-        (Levels.get_nb_depth level)
-        (Levels.get_ops level)
-    in
+    let compute = Compute.create level.nb_expr level.nb_depth level.ops in
     let typed = display_and_read compute in
     let expected = Compute.interpret compute in
     match typed == Number.to_int expected with

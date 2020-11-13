@@ -7,7 +7,3 @@ let get lvl =
   | LVL1 -> { nb_expr = 1; nb_depth = 1; ops = [ Compute.ADD ] }
   | LVL2 -> { nb_expr = 1; nb_depth = 2; ops = [ Compute.ADD ] }
   | LVL3 -> { nb_expr = 1; nb_depth = 1; ops = [ Compute.ADD; Compute.SUB ] }
-
-let get_nb_expr l = l.nb_expr
-let get_nb_depth l = l.nb_depth
-let get_ops l = l.ops
