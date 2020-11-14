@@ -1,3 +1,5 @@
+open Base
+
 type t = int
 
 let to_string n = Int.to_string n

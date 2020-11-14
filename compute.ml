@@ -1,3 +1,5 @@
+open Base
+
 type op = ADD | SUB
 
 type t = Num of Number.t | Operation of { op : op; l : t; r : t }
@@ -9,7 +11,10 @@ let rec to_string c =
   | Num n -> Number.to_string n
   | Operation o -> to_string o.l ^ op_to_string o.op ^ to_string o.r
 
-let get_random_op ops = List.nth ops (Random.int (List.length ops))
+let get_random_op (ops : op list) =
+  List.nth ops (Random.int (List.length ops)) |> function
+  | None -> ADD
+  | Some n -> n
 
 let rec create c d ops =
   match c with

@@ -1,9 +1,15 @@
 type t
 
-val to_string: t -> string
+type round_d_t = { compute : Compute.t; input : Number.t }
 
-val get_note: t -> string
+type round_result = (round_d_t, round_d_t) Result.t
 
-val register: t -> Result.t -> t
+val get_note : t -> string
 
-val empty: t
+val to_string : t -> string
+
+val create_round_d : Compute.t -> Number.t -> round_d_t
+
+val register : t -> round_result -> t
+
+val empty : t
