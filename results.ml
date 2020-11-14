@@ -13,13 +13,11 @@ let get_note results =
 let ret_to_string r =
   let to_s round_d =
     let base = " Calcul '" ^ Compute.to_string round_d.compute ^ "' " in
-    base ^ " = "
-    ^ Number.to_string (Compute.interpret round_d.compute)
-    ^ " ("
-    ^ Number.to_string round_d.input
-    ^ ")"
+    base ^ " = " ^ Number.to_string (Compute.interpret round_d.compute)
   in
-  match r with Ok r' -> "[Bon]" ^ to_s r' | Error r' -> "[Faux]" ^ to_s r'
+  match r with
+  | Ok r' -> "[Bon]" ^ to_s r'
+  | Error r' -> "[Faux]" ^ to_s r' ^ " (" ^ Number.to_string r'.input ^ ")"
 
 let to_string results =
   "Voici tes resultats:\n"
