@@ -21,7 +21,6 @@ let ret_to_string r =
 
 let to_string results =
   "Voici tes resultats:\n"
-  (* ^ (results |> List.rev |> List.map Cresult.to_string |> String.concat "\n") *)
   ^ (results |> List.rev |> List.map ~f:ret_to_string |> String.concat ~sep:"\n")
   ^ "\n" ^ "Note: " ^ (results |> get_note) ^ "\n"
 

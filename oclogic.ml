@@ -8,9 +8,12 @@ module Oclogic : sig
 
   val game : Levels.t -> int -> unit
 end = struct
-  let display_and_read c1 =
+  let rec display_and_read c1 =
     printf "Calcule: %s = " (Compute.to_string c1);
-    Caml.read_int ()
+    try Caml.read_int ()
+    with _ ->
+      printf "Entre un entier naturel\n";
+      display_and_read c1
 
   let round l =
     let level = Levels.get l in
